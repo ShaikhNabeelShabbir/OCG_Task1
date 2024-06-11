@@ -1,8 +1,5 @@
 const fs = require("fs").promises;
 const fs1 = require("fs");
-// Function to create a delay
-const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
-
 // Fetch data from CoinGecko API
 const fetchDATA = async (url, name) => {
   try {
@@ -70,16 +67,16 @@ const parsingJSON = async (top10) => {
 const main = async () => {
   try {
     console.log("Waiting");
-    await delay(2000);
+
     await fetchDATA(
       "https://api.coingecko.com/api/v3/simple/supported_vs_currencies",
       "op1"
     );
-    await delay(2000);
+
     top10 = await firstTen("op1.json");
-    await delay(2000);
+
     await fetchDATA("https://api.coingecko.com/api/v3/exchange_rates", "op2");
-    await delay(4000);
+
     parsingJSON(top10);
   } catch (error) {
     console.log("Problem happened", error);
