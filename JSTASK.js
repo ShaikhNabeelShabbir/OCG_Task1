@@ -1,5 +1,4 @@
 const fs = require("fs").promises;
-const fs1 = require("fs");
 // Fetch data from CoinGecko API
 const fetchDATA = async (url, name) => {
   try {
@@ -42,7 +41,7 @@ const parsingJSON = async (top10) => {
   var result = {};
   try {
     // Read the JSON file
-    const data = fs1.readFileSync("coingecko_vs_currencies.json");
+    const data = await fs.readFile("coingecko_vs_currencies.json", "utf8");
 
     // Parse the JSON file
     const obj = JSON.parse(data);
