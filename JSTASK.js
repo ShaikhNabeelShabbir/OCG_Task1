@@ -42,7 +42,7 @@ const parsingJSON = async (top10) => {
   var result = {};
   try {
     // Read the JSON file
-    const data = fs1.readFileSync("op2.json");
+    const data = fs1.readFileSync("coingecko_vs_currencies.json");
 
     // Parse the JSON file
     const obj = JSON.parse(data);
@@ -62,6 +62,11 @@ const parsingJSON = async (top10) => {
   } catch (err) {
     console.error("Error reading or parsing file", err);
   }
+  // for (var key in result) {
+  //   console.log(key + " : " + result[key]);
+  // }
+  jResult = JSON.stringify(result, null, 2);
+  JSON_File_Creator(jResult, "result");
 };
 
 const main = async () => {
@@ -70,12 +75,15 @@ const main = async () => {
 
     await fetchDATA(
       "https://api.coingecko.com/api/v3/simple/supported_vs_currencies",
-      "op1"
+      "supported_vs_currencies"
     );
 
-    top10 = await firstTen("op1.json");
+    top10 = await firstTen("supported_vs_currencies.json");
 
-    await fetchDATA("https://api.coingecko.com/api/v3/exchange_rates", "op2");
+    await fetchDATA(
+      "https://api.coingecko.com/api/v3/exchange_rates",
+      "coingecko_vs_currencies"
+    );
 
     parsingJSON(top10);
   } catch (error) {
