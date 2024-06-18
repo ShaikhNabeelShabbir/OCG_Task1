@@ -37,11 +37,11 @@ const firstTen = async (file) => {
   return top10;
 };
 
-const parsingJSON = async (top10) => {
+const parsingJSON = async (top10, name) => {
   var result = {};
   try {
     // Read the JSON file
-    const data = await fs.readFile("coingecko_vs_currencies.json", "utf8");
+    const data = await fs.readFile(`${name}.json`, "utf8");
 
     // Parse the JSON file
     const obj = JSON.parse(data);
@@ -84,7 +84,7 @@ const main = async () => {
       "coingecko_vs_currencies"
     );
 
-    parsingJSON(top10);
+    await parsingJSON(top10, "coingecko_vs_currencies");
   } catch (error) {
     console.log("Problem happened", error);
   } finally {
